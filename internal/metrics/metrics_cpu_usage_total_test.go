@@ -6,7 +6,10 @@ import (
 )
 
 func TestGetCpuUsage(t *testing.T) {
-	collector := NewCpuUsageCollector()
+	collector, err := NewCpuUsageTotalCollector()
+	if err != nil {
+		t.Fatalf("failed to create collector: %v", err)
+	}
 	usage, err := collector.CollectMetrics()
 	if err != nil {
 		t.Fatalf("failed to collect metrics: %v", err)
@@ -16,7 +19,10 @@ func TestGetCpuUsage(t *testing.T) {
 }
 
 func TestGetCpuUsageContinuously(t *testing.T) {
-	collector := NewCpuUsageCollector()
+	collector, err := NewCpuUsageTotalCollector()
+	if err != nil {
+		t.Fatalf("failed to create collector: %v", err)
+	}
 	// 10 次后停止
 	count := 0
 	for {
