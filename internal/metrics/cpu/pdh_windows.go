@@ -1,3 +1,5 @@
+//go:build windows
+
 package metrics
 
 import "github.com/rokukoo/win_perf_counters"

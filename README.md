@@ -47,7 +47,7 @@ CloudStack Server Agent 是由云栈互联（CloudStack）开发的服务器被�
 - [ ] CPU 监控
   - [x] CPU 使用率
   - [x] CPU 频率
-  - [ ] CPU 核心数
+  - [x] CPU 核心数
   - [ ] CPU 核心数据(型号)
 - [ ] 内存监控
   - [ ] 内存使用率
