@@ -1,8 +1,11 @@
 # cloudstack-server-agent
 
-<a href="https://github.com/cloudstack-tech/cloudstack-server-agent">
-  <img src="https://camo.githubusercontent.com/1e4b67c04239c3dd635207b75c841e801dcf80d5d4a4bdc815672b4c50549ea5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4769746875622d3030303f7374796c653d666c6174266c6f676f3d476974687562266c6f676f436f6c6f723d7768697465" />
-</a>
+[![GitHub](https://camo.githubusercontent.com/1e4b67c04239c3dd635207b75c841e801dcf80d5d4a4bdc815672b4c50549ea5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4769746875622d3030303f7374796c653d666c6174266c6f676f3d476974687562266c6f676f436f6c6f723d7768697465)](https://github.com/cloudstack-tech/cloudstack-server-agent)
+![GitHub go.mod Go version (branch)](https://img.shields.io/github/go-mod/go-version/cloudstack-tech/cloudstack-server-agent/master)
+![GitHub License](https://img.shields.io/github/license/cloudstack-tech/cloudstack-server-agent)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/cloudstack-tech/cloudstack-server-agent)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/cloudstack-tech/cloudstack-server-agent)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/cloudstack-tech/cloudstack-server-agent/go.yml?color=%2325c0a1)
 
 CloudStack Server Agent 是由云栈互联（CloudStack）开发的服务器被控端服务，为云管理平台提供 Windows 服务器的远程管理、监控和日志采集功能。
 
