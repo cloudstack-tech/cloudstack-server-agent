@@ -1,6 +1,8 @@
 package metrics
 
-import "github.com/shirou/gopsutil/v4/cpu"
+import (
+	"github.com/shirou/gopsutil/v4/cpu"
+)
 
 type CpuInfoCollector struct {
 }
