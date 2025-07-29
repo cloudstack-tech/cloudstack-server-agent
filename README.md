@@ -34,8 +34,8 @@ CloudStack Server Agent 是由云栈互联（CloudStack）开发的服务器被�
 ### 远程调用 RPC
 
 - [ ] 命令行执行
-  - [ ] CMD 命令执行
-  - [ ] PowerShell 脚本执行
+  - [x] CMD 命令执行
+  - [x] PowerShell 脚本执行
   - [ ] WMI 查询接口
   - [ ] 超时控制和错误处理
 
@@ -58,8 +58,9 @@ CloudStack Server Agent 是由云栈互联（CloudStack）开发的服务器被�
 - [ ] 磁盘分区监控
   - [ ] 分区使用率
 - [ ] 网络监控
-  - [ ] 网络接口流量
-  - [ ] 网络连接状态
+  - [x] 网络接口流量
+  - [ ] 网络接口发包 Packet 量
+  - [ ] 网络连接状态(连接数)
   - [ ] TCP/IP 性能指标
   - [ ] 网络延迟和丢包率
   - [ ] 网络接口配置信息
