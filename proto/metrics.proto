@@ -1,15 +1,19 @@
 syntax = "proto3";
 
-import "google/protobuf/any.proto";
-
 package proto;
 option go_package = "./proto;proto";
 
 message Metrics {
     string name = 1;
-    google.protobuf.Any value = 2;
-    string timestamp = 3;
-    string unit = 4;
+    oneof value {
+        double double_value = 2;
+        string string_value = 3;
+        bool bool_value = 4;
+        int32 int32_value = 5;
+        int64 int64_value = 6;
+    }
+    string timestamp = 7;
+    string unit = 8;
 }
 
 message MetricsRequest {

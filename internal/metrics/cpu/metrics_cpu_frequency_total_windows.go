@@ -8,15 +8,13 @@ import (
 
 	collector "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
-	"google.golang.org/protobuf/types/known/anypb"
-	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 var (
 	processorFrequencyHandle = performanceQuery.MustAddCounterToQuery("\\Processor Information(_Total)\\Actual Frequency")
 )
 
-var _ collector.MetricsCollector[float64] = &CpuFrequencyCollector{}
+var _ collector.MetricsCollector = &CpuFrequencyCollector{}
 
 type CpuFrequencyCollector struct {
 }
@@ -39,10 +37,10 @@ func (c *CpuFrequencyCollector) GetName() string {
 	return "cpu_frequency_total"
 }
 
-func (c *CpuFrequencyCollector) GetValue() (float64, error) {
+func (c *CpuFrequencyCollector) GetValue() (any, error) {
 	usage, err := performanceQuery.GetFormattedCounterValueDouble(processorFrequencyHandle)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	return usage / 1000, nil
@@ -53,15 +51,16 @@ func (c *CpuFrequencyCollector) CollectMetrics() (*proto.Metrics, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	value, err := anypb.New(&wrapperspb.DoubleValue{Value: usage})
-	if err != nil {
-		return nil, fmt.Errorf("failed to create any: %w", err)
+	floatValue, ok := usage.(float64)
+	if !ok {
+		return nil, fmt.Errorf("usage is not a float64")
 	}
 
 	return &proto.Metrics{
-		Name:      c.GetName(),
-		Value:     value,
+		Name: c.GetName(),
+		Value: &proto.Metrics_DoubleValue{
+			DoubleValue: floatValue,
+		},
 		Timestamp: time.Now().Format(time.RFC3339),
 		Unit:      "MHz",
 	}, nil

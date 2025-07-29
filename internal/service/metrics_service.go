@@ -9,12 +9,13 @@ import (
 )
 
 type MetricsService struct {
+	proto.MetricsServiceServer
 }
 
 func (s *MetricsService) GetMetrics(ctx context.Context, req *proto.MetricsRequest) (*proto.MetricsResponse, error) {
 	metrics := make([]*proto.Metrics, 0)
 	for _, name := range req.Name {
-		collector, err := m.GetMetricsCollector[any](name)
+		collector, err := m.GetMetricsCollector(name)
 		if err != nil {
 			return nil, err
 		}

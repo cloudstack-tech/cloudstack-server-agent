@@ -4,8 +4,8 @@ import (
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
 )
 
-type MetricsCollector[T any] interface {
+type MetricsCollector interface {
 	GetName() string
-	GetValue() (T, error)
+	GetValue() (any, error)
 	CollectMetrics() (*proto.Metrics, error)
 }

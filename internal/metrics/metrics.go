@@ -27,14 +27,10 @@ func init() {
 	MetricsCollectors["cpu_frequency"] = cpuFrequencyCollector
 }
 
-func GetMetricsCollector[T any](name string) (collector.MetricsCollector[T], error) {
+func GetMetricsCollector(name string) (collector.MetricsCollector, error) {
 	c, ok := MetricsCollectors[name]
 	if !ok {
 		return nil, nil
 	}
-	collector, ok := c.(collector.MetricsCollector[T])
-	if !ok {
-		return nil, nil
-	}
-	return collector, nil
+	return c.(collector.MetricsCollector), nil
 }

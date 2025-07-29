@@ -8,8 +8,6 @@ import (
 
 	collector "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
-	"google.golang.org/protobuf/types/known/anypb"
-	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 var (
@@ -17,7 +15,7 @@ var (
 )
 
 // 接口断言
-var _ collector.MetricsCollector[float64] = &CpuUsageTotalCollector{}
+var _ collector.MetricsCollector = &CpuUsageTotalCollector{}
 
 type CpuUsageTotalCollector struct {
 }
@@ -40,11 +38,11 @@ func (c *CpuUsageTotalCollector) GetName() string {
 	return "cpu_usage_total"
 }
 
-func (c *CpuUsageTotalCollector) GetValue() (float64, error) {
+func (c *CpuUsageTotalCollector) GetValue() (any, error) {
 	performanceQuery.CollectData()
 	usage, err := performanceQuery.GetFormattedCounterValueDouble(processorUtilityHandle)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	if usage > 100 {
 		usage = 100
@@ -59,14 +57,16 @@ func (c *CpuUsageTotalCollector) CollectMetrics() (*proto.Metrics, error) {
 		return nil, err
 	}
 
-	value, err := anypb.New(&wrapperspb.DoubleValue{Value: usage})
-	if err != nil {
-		return nil, fmt.Errorf("failed to create any: %w", err)
+	floatValue, ok := usage.(float64)
+	if !ok {
+		return nil, fmt.Errorf("usage is not a float64")
 	}
 
 	return &proto.Metrics{
-		Name:      c.GetName(),
-		Value:     value,
+		Name: c.GetName(),
+		Value: &proto.Metrics_DoubleValue{
+			DoubleValue: floatValue,
+		},
 		Timestamp: time.Now().Format(time.RFC3339),
 		Unit:      "%",
 	}, nil
