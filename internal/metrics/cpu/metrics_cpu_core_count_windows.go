@@ -2,11 +2,22 @@
 
 package metrics
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+	"time"
+
+	collector "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
+	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
+	"google.golang.org/protobuf/types/known/anypb"
+	"google.golang.org/protobuf/types/known/wrapperspb"
+)
 
 var (
 	processorCoreCountHandle = performanceQuery.MustAddCounterToQuery("\\Processor Information(*)\\% Processor Utility")
 )
+
+var _ collector.MetricsCollector[float64] = &CpuCoreCountCollector{}
 
 type CpuCoreCountCollector struct {
 }
@@ -29,7 +40,7 @@ func (c *CpuCoreCountCollector) GetName() string {
 	return "cpu_core_count"
 }
 
-func (c *CpuCoreCountCollector) CollectMetrics() (float64, error) {
+func (c *CpuCoreCountCollector) GetValue() (float64, error) {
 	performanceQuery.CollectData()
 
 	usage, err := performanceQuery.GetFormattedCounterArrayDouble(processorCoreCountHandle)
@@ -46,4 +57,23 @@ func (c *CpuCoreCountCollector) CollectMetrics() (float64, error) {
 	}
 
 	return float64(count), nil
+}
+
+func (c *CpuCoreCountCollector) CollectMetrics() (*proto.Metrics, error) {
+	usage, err := c.GetValue()
+	if err != nil {
+		return nil, err
+	}
+
+	value, err := anypb.New(&wrapperspb.DoubleValue{Value: usage})
+	if err != nil {
+		return nil, fmt.Errorf("failed to create any: %w", err)
+	}
+
+	return &proto.Metrics{
+		Name:      c.GetName(),
+		Value:     value,
+		Timestamp: time.Now().Format(time.RFC3339),
+		Unit:      "core",
+	}, nil
 }

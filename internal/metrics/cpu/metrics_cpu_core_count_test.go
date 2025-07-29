@@ -12,7 +12,7 @@ func TestGetCpuCoreCount(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create collector: %v", err)
 	}
-	cpuCoreCount, err := collector.CollectMetrics()
+	cpuCoreCount, err := collector.GetValue()
 	if err != nil {
 		t.Fatalf("failed to collect metrics: %v", err)
 	}
@@ -24,14 +24,14 @@ func TestGetCpuCoreCountContinuously(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create collector: %v", err)
 	}
-	cpuCoreCount, err := collector.CollectMetrics()
+	cpuCoreCount, err := collector.GetValue()
 	if err != nil {
 		t.Fatalf("failed to collect metrics: %v", err)
 	}
 	t.Logf("cpu core count: %f", cpuCoreCount)
 	count := 0
 	for {
-		cpuCoreCount, err := collector.CollectMetrics()
+		cpuCoreCount, err := collector.GetValue()
 		if err != nil {
 			t.Fatalf("failed to collect metrics: %v", err)
 		}

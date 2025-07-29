@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package proto;
+option go_package = "./proto;proto";
+
+message Metrics {
+    string name = 1;
+    google.protobuf.Any value = 2;
+    string timestamp = 3;
+    string unit = 4;
+}
+
+message MetricsRequest {
+    repeated string name = 1;
+}
+
+message MetricsResponse {
+    repeated Metrics metrics = 1;
+}
+
+service MetricsService {
+    rpc GetMetrics(MetricsRequest) returns (MetricsResponse);
+}

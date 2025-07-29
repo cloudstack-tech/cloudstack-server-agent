@@ -7,7 +7,7 @@ func TestGetCpuInfo(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create collector: %v", err)
 	}
-	cpuInfo, err := collector.CollectMetrics()
+	cpuInfo, err := collector.GetValue()
 	if err != nil {
 		t.Fatalf("failed to collect metrics: %v", err)
 	}

@@ -12,12 +12,12 @@ func TestGetCpuFrequency(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create collector: %v", err)
 	}
-	usage, err := collector.CollectMetrics()
+	value, err := collector.GetValue()
 	if err != nil {
 		t.Fatalf("failed to collect metrics: %v", err)
 	}
 
-	t.Logf("cpu frequency: %f", usage)
+	t.Logf("cpu frequency: %f", value)
 }
 
 func TestGetCpuFrequencyContinuously(t *testing.T) {
@@ -28,12 +28,12 @@ func TestGetCpuFrequencyContinuously(t *testing.T) {
 	// 10 次后停止
 	count := 0
 	for {
-		usage, err := collector.CollectMetrics()
+		value, err := collector.GetValue()
 		if err != nil {
 			t.Fatalf("failed to collect metrics: %v", err)
 		}
 
-		t.Logf("cpu frequency: %f", usage)
+		t.Logf("cpu frequency: %f", value)
 		count++
 		if count >= 10 {
 			break
