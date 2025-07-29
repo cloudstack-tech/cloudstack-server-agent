@@ -21,8 +21,12 @@ func RunGrpcServer() {
 	}
 	log.Println(Address + " net.Listing...")
 	grpcServer := grpc.NewServer()
-	pb.RegisterMetricsServiceServer(grpcServer, &service.MetricsService{})
-
+	pb.RegisterMetricsServiceServer(
+		grpcServer, &service.MetricsService{},
+	)
+	pb.RegisterHealthServiceServer(
+		grpcServer, &service.HealthService{},
+	)
 	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Fatalf("grpcServer.Serve err: %v", err)

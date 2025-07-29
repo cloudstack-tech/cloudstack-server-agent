@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./proto;proto";
+
+message HealthRequest {
+}
+
+enum HealthStatus {
+    UNKNOWN = 0;
+    HEALTHY = 1;
+    UNHEALTHY = 2;
+    MAINTENANCE = 3;
+}
+
+message HealthResponse {
+    HealthStatus status = 1;
+    string message = 2;
+    string timestamp = 3;
+}
+
+service HealthService {
+    rpc GetHealth(HealthRequest) returns (HealthResponse);
+}
