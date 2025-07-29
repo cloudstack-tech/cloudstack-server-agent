@@ -6,7 +6,7 @@
 
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/cloudstack-tech/cloudstack-server-agent)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/cloudstack-tech/cloudstack-server-agent)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/cloudstack-tech/cloudstack-server-agent/go.yml?color=%2325c0a1)
+[![Go](https://github.com/cloudstack-tech/cloudstack-server-agent/actions/workflows/go.yml/badge.svg)](https://github.com/cloudstack-tech/cloudstack-server-agent/actions/workflows/go.yml)
 
 CloudStack Server Agent 是由云栈互联（CloudStack）开发的服务器被控端服务，为云管理平台提供 Windows 服务器的远程管理、监控和日志采集功能。
 
