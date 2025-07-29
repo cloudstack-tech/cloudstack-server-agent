@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
-	cpu "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/cpu"
+	collector "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/collector"
+	cpu "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/cpu"
 )
 
 var MetricsCollectors = make(map[string]collector.MetricsCollector)

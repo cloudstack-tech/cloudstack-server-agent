@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	collector "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
+	collector "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/collector"
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
 )
 

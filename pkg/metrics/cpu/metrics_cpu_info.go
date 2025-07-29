@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	collector "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
+	collector "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/collector"
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
 	"github.com/shirou/gopsutil/v4/cpu"
 )

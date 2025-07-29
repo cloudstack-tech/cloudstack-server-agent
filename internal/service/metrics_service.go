@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	m "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics"
+	m "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics"
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
 )
 
