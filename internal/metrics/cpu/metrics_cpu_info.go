@@ -2,15 +2,12 @@ package metrics
 
 import (
 	"fmt"
+	"time"
 
 	collector "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/collector"
 	"github.com/cloudstack-tech/cloudstack-server-agent/proto"
 	"github.com/shirou/gopsutil/v4/cpu"
 )
-
-type CpuInfo struct {
-	ModelName string
-}
 
 var _ collector.MetricsCollector = &CpuInfoCollector{}
 
@@ -33,9 +30,9 @@ func (c *CpuInfoCollector) GetValue() (any, error) {
 		return nil, fmt.Errorf("failed to get cpu info: %w", err)
 	}
 
-	cpuInfos := make([]CpuInfo, len(cpuInfo))
+	cpuInfos := make([]*proto.CpuInfo, len(cpuInfo))
 	for i, info := range cpuInfo {
-		cpuInfos[i] = CpuInfo{
+		cpuInfos[i] = &proto.CpuInfo{
 			ModelName: info.ModelName,
 		}
 	}
@@ -44,10 +41,24 @@ func (c *CpuInfoCollector) GetValue() (any, error) {
 }
 
 func (c *CpuInfoCollector) CollectMetrics() (*proto.Metrics, error) {
-	// cpuInfo, err := c.GetValue()
-	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to get cpu info: %w", err)
-	// }
+	cpuInfo, err := c.GetValue()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get cpu info: %w", err)
+	}
 
-	return nil, nil
+	cpuInfoList, ok := cpuInfo.([]*proto.CpuInfo)
+	if !ok {
+		return nil, fmt.Errorf("cpu info is not a []proto.CpuInfo")
+	}
+
+	return &proto.Metrics{
+		Name: c.GetName(),
+		Value: &proto.Metrics_CpuInfoList{
+			CpuInfoList: &proto.CpuInfoList{
+				CpuInfos: cpuInfoList,
+			},
+		},
+		Timestamp: time.Now().Format(time.RFC3339),
+		Unit:      "cpu_info",
+	}, nil
 }

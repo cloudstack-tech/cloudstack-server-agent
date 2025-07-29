@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "metrics_cpu_info.proto";
+
 package proto;
 option go_package = "./proto;proto";
 
@@ -11,9 +13,10 @@ message Metrics {
         bool bool_value = 4;
         int32 int32_value = 5;
         int64 int64_value = 6;
+        CpuInfoList cpu_info_list = 7;
     }
-    string timestamp = 7;
-    string unit = 8;
+    string timestamp = 8;
+    string unit = 9;
 }
 
 message MetricsRequest {
