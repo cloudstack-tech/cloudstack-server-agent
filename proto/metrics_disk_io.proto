@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./proto;proto";
+
+message DiskIo {
+    string name = 1;
+    int64 read_bytes = 2;
+    int64 write_bytes = 3;
+    int64 read_count = 4;
+    int64 write_count = 5;
+    int64 read_time = 6;
+    int64 write_time = 7;
+}
+
+message DiskIoList {
+    repeated DiskIo disk_ios = 1;
+}

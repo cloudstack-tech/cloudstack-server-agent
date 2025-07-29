@@ -1,22 +1,24 @@
 syntax = "proto3";
 
 import "metrics_cpu_info.proto";
+import "metrics_disk_io.proto";
 
 package proto;
 option go_package = "./proto;proto";
 
 message Metrics {
     string name = 1;
+    string timestamp = 2;
+    string unit = 3;
     oneof value {
-        double double_value = 2;
-        string string_value = 3;
-        bool bool_value = 4;
-        int32 int32_value = 5;
-        int64 int64_value = 6;
-        CpuInfoList cpu_info_list = 7;
+        double double_value = 4;
+        string string_value = 5;
+        bool bool_value = 6;
+        int32 int32_value = 7;
+        int64 int64_value = 8;
+        CpuInfoList cpu_info_list = 9;
+        DiskIoList disk_io_list = 10;
     }
-    string timestamp = 8;
-    string unit = 9;
 }
 
 message MetricsRequest {
