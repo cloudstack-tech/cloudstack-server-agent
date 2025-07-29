@@ -54,7 +54,7 @@ func (c *CpuCoreCountCollector) GetValue() (any, error) {
 		count++
 	}
 
-	return float64(count), nil
+	return count, nil
 }
 
 func (c *CpuCoreCountCollector) CollectMetrics() (*proto.Metrics, error) {
@@ -62,15 +62,15 @@ func (c *CpuCoreCountCollector) CollectMetrics() (*proto.Metrics, error) {
 	if err != nil {
 		return nil, err
 	}
-	floatValue, ok := usage.(float64)
+	floatValue, ok := usage.(int)
 	if !ok {
-		return nil, fmt.Errorf("usage is not a float64")
+		return nil, fmt.Errorf("usage is not a int")
 	}
 
 	return &proto.Metrics{
 		Name: c.GetName(),
-		Value: &proto.Metrics_DoubleValue{
-			DoubleValue: floatValue,
+		Value: &proto.Metrics_Int32Value{
+			Int32Value: int32(floatValue),
 		},
 		Timestamp: time.Now().Format(time.RFC3339),
 		Unit:      "core",
