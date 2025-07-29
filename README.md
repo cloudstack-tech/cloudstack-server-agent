@@ -26,6 +26,10 @@ CloudStack Server Agent 是由云栈互联（CloudStack）开发的服务器被�
 
 ## 功能特性
 
+### 自动上报
+
+- [ ] 运行状态
+
 ### 远程调用 RPC
 
 - [ ] 命令行执行

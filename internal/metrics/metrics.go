@@ -5,7 +5,7 @@ import (
 	cpu "github.com/cloudstack-tech/cloudstack-server-agent/internal/metrics/cpu"
 )
 
-var MetricsCollectors = make(map[string]any)
+var MetricsCollectors = make(map[string]collector.MetricsCollector)
 
 func init() {
 	cpuInfoCollector, err := cpu.NewCpuInfoCollector()
@@ -25,6 +25,12 @@ func init() {
 		panic(err)
 	}
 	MetricsCollectors["cpu_frequency"] = cpuFrequencyCollector
+
+	cpuUsageCollector, err := cpu.NewCpuUsageTotalCollector()
+	if err != nil {
+		panic(err)
+	}
+	MetricsCollectors["cpu_usage_total"] = cpuUsageCollector
 }
 
 func GetMetricsCollector(name string) (collector.MetricsCollector, error) {
@@ -32,5 +38,5 @@ func GetMetricsCollector(name string) (collector.MetricsCollector, error) {
 	if !ok {
 		return nil, nil
 	}
-	return c.(collector.MetricsCollector), nil
+	return c, nil
 }
