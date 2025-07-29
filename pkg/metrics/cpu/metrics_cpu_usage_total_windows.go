@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	processorUtilityHandle = performanceQuery.MustAddCounterToQuery("\\Processor Information(_Total)\\% Processor Utility")
+	processorUtilityHandle = collector.PerformanceQuery.MustAddCounterToQuery("\\Processor Information(_Total)\\% Processor Utility")
 )
 
 // 接口断言
@@ -21,7 +21,7 @@ type CpuUsageTotalCollector struct {
 }
 
 func (c *CpuUsageTotalCollector) init() error {
-	performanceQuery.CollectData()
+	collector.PerformanceQuery.CollectData()
 	return nil
 }
 
@@ -39,8 +39,8 @@ func (c *CpuUsageTotalCollector) GetName() string {
 }
 
 func (c *CpuUsageTotalCollector) GetValue() (any, error) {
-	performanceQuery.CollectData()
-	usage, err := performanceQuery.GetFormattedCounterValueDouble(processorUtilityHandle)
+	collector.PerformanceQuery.CollectData()
+	usage, err := collector.PerformanceQuery.GetFormattedCounterValueDouble(processorUtilityHandle)
 	if err != nil {
 		return nil, err
 	}

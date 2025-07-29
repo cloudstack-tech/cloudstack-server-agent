@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	processorCoreCountHandle = performanceQuery.MustAddCounterToQuery("\\Processor Information(*)\\% Processor Utility")
+	processorCoreCountHandle = collector.PerformanceQuery.MustAddCounterToQuery("\\Processor Information(*)\\% Processor Utility")
 )
 
 var _ collector.MetricsCollector = &CpuCoreCountCollector{}
@@ -21,7 +21,7 @@ type CpuCoreCountCollector struct {
 }
 
 func (c *CpuCoreCountCollector) init() error {
-	performanceQuery.CollectData()
+	collector.PerformanceQuery.CollectData()
 	return nil
 }
 
@@ -39,9 +39,9 @@ func (c *CpuCoreCountCollector) GetName() string {
 }
 
 func (c *CpuCoreCountCollector) GetValue() (any, error) {
-	performanceQuery.CollectData()
+	collector.PerformanceQuery.CollectData()
 
-	usage, err := performanceQuery.GetFormattedCounterArrayDouble(processorCoreCountHandle)
+	usage, err := collector.PerformanceQuery.GetFormattedCounterArrayDouble(processorCoreCountHandle)
 	if err != nil {
 		return nil, err
 	}

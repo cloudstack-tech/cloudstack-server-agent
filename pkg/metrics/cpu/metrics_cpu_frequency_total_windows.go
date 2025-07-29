@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	processorFrequencyHandle = performanceQuery.MustAddCounterToQuery("\\Processor Information(_Total)\\Actual Frequency")
+	processorFrequencyHandle = collector.PerformanceQuery.MustAddCounterToQuery("\\Processor Information(_Total)\\Actual Frequency")
 )
 
 var _ collector.MetricsCollector = &CpuFrequencyCollector{}
@@ -20,7 +20,7 @@ type CpuFrequencyCollector struct {
 }
 
 func (c *CpuFrequencyCollector) init() error {
-	performanceQuery.CollectData()
+	collector.PerformanceQuery.CollectData()
 	return nil
 }
 
@@ -38,7 +38,7 @@ func (c *CpuFrequencyCollector) GetName() string {
 }
 
 func (c *CpuFrequencyCollector) GetValue() (any, error) {
-	usage, err := performanceQuery.GetFormattedCounterValueDouble(processorFrequencyHandle)
+	usage, err := collector.PerformanceQuery.GetFormattedCounterValueDouble(processorFrequencyHandle)
 	if err != nil {
 		return nil, err
 	}
