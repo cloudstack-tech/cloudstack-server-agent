@@ -1,6 +1,8 @@
 package collector
 
-import "github.com/rokukoo/win_perf_counters"
+import (
+	"github.com/rokukoo/win_perf_counters"
+)
 
 const defaultMaxBufferSize = 100 * 1024 * 1024
 

@@ -3,6 +3,7 @@ package metrics
 import (
 	collector "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/collector"
 	cpu "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/cpu"
+	network "github.com/cloudstack-tech/cloudstack-server-agent/pkg/metrics/network"
 )
 
 var MetricsCollectors = make(map[string]collector.MetricsCollector)
@@ -31,6 +32,12 @@ func init() {
 		panic(err)
 	}
 	MetricsCollectors["cpu_usage_total"] = cpuUsageCollector
+
+	networkTrafficPerKbitsSecCollector, err := network.NewNetworkTrafficPerKbitsSecCollector()
+	if err != nil {
+		panic(err)
+	}
+	MetricsCollectors["network_traffic_per_kbits_sec"] = networkTrafficPerKbitsSecCollector
 }
 
 func GetMetricsCollector(name string) (collector.MetricsCollector, error) {
